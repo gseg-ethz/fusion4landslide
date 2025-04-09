@@ -1,0 +1,15 @@
+misc:
+  verbose: True
+
+path_name:
+  input_root: '/scratch2/zhawang/projects/deformation/DeformHD_local/data/Brienz/ROI_2'
+  output_root: '/scratch2/zhawang/projects/deformation/DeformHD_local/output/Brienz/ROI_2/pure_2d'
+
+data:
+  src_image: '200221_10_1.jpg'
+  tgt_image: '201130_9_1.jpg'
+
+method:
+  image_size: [1920, 2560]
+  crop_size: [960, 1280]
+  overlap_size: [480, 640]

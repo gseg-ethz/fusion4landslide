@@ -1,0 +1,18 @@
+misc:
+  verbose: True
+
+path_name:
+  input_root: '/scratch2/zhawang/datasets/Brienz_TLS/2002_2011/tile_22'
+  # pure_2d, c2f
+  output_root: '/scratch2/zhawang/projects/deformation/DeformHD_local/output/Brienz_TLS/2002_2011/tile_22/pure_2d'
+
+data:
+#  src_image: '_2D_10_1_200221.jpg'
+#  tgt_image: '_2D_9_1_201130.jpg'
+  src_image: '_2D_12_0_200221.jpg'
+  tgt_image: '_2D_11_0_201130.jpg'
+
+method:
+  image_size: [1920, 2560]
+  crop_size: [960, 1280]
+  overlap_size: [480, 640]

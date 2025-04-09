@@ -1,0 +1,55 @@
+misc:
+  verbose: True
+  save_interim: False
+
+path_name:
+  input_root: /scratch2/zhawang/datasets/Mattertal/1907_2207_ROIs/registration_w_riscan_no_georeference
+  output_dir: /scratch2/zhawang/projects/deformation/DeformHD_local/output/Mattertal/1907_2207_ROIs/registration_w_riscan_no_georeference/rgb_guided/01_results/
+#  full_rgb_guided_all_tiles_analysis_pc104, full_rgb_guided_single_tile_analysis_pc104
+  output_folder: rgb_guided_5_img_gnss_related_tiles_analysis_pc104
+  weight_dir: weights/
+  img_matching_result_dir: img_matching_results  # img_matching_results_RoMA, or img_matching_results_ELoFTR
+
+data:
+  dataset: mattertal # 'brienz' or 'rockfall_simulator'
+  src_pcd: 190710_121418_ROI1_xyzrgb.ply
+  tgt_pcd: 220706_111153_ROI1_xyzrgb.ply
+  multiple_case: True  # False when only using one ROIs with one image (e.g., cases used in workshop paper), or using Rockfall Simulator data (e57 files)
+
+method:
+  # point cloud tiling
+#  pcd_tiling: False
+  tiling_type: xy_tiling # xy_tiling, or hv_tiling
+  max_pts_per_tile: 1000000
+  min_pts_per_tile: 5000
+  voxel_size: 0.1   # only used for supervoxel segmentation?
+
+  # general method types, global 3D point matches from 2D pixel matching
+  use_2d_matches: True   # for fusion method, 2D match input is compulsory
+  img_matching_type: ELoFTR # ELoFTR, RoMA
+  num_sub_img: 3  # for num. of most matched, 1, 3, 5
+  image_size: [1920, 2560]
+  crop_size: [960, 1280]
+  overlap_size: [480, 640]
+  save_img_matching_visualization: True
+
+  pixel_thres: 15  # default: 5, too small will select only outliers
+  lifting_type: nn_search # nn_search, interpolation, nn_search_filter (has unsolved issues)
+  matches_from_2d_type: nn_src_only # nn_mutual, nn_union, default: nn_src_only, nn_src_with_tgt_for_visualize
+  save_initial_matches_from_2d: True
+
+  # patch construction
+  clustering: True      # if false use the pre-computed result, reducing debugging time
+  clustering_type: supervoxel   # 'supervoxel', 'superpoint'
+  level_of_superpoint: 0   # 4 levels (0, 1, 2, 3), 0: smallest, 3: largest
+  small_patch_removal: True
+  num_min_matches_for_small_patch: 10   # default: 10
+
+  # fine matching
+  max_magnitude: 10
+
+  num_min_fine_match: 5  # important for smoothness, default 5
+  weighting_svd: False    # for fine matching with matches from both 2D and 3D sources
+  icp_refine: True
+  icp_thres: 0.3        # default: 0.1
+  n_normals: 30

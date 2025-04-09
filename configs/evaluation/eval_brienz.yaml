@@ -1,0 +1,33 @@
+misc:
+#  gpu_mode: True
+  verbose: True
+  save_interim: True
+#  verbose_freq: 100
+
+dir:
+  input_root: /scratch2/zhawang/projects/deformation/DeformHD_local/data/Brienz/ROI_2/raw_pcd/
+  output_root: /scratch2/zhawang/projects/deformation/DeformHD_local/output/Brienz/ROI_2/evaluation/
+
+data:
+  src_pcd_name: Brienz_TLS_ROI_2_200221_reg_xyzrgb.ply
+  tgt_pcd_name: Brienz_TLS_ROI_2_201130_reg_xyzrgb.ply
+#  benchmark_name: ScanNetpp_01_03_predator   # [x, x, x] for full dataset, [xx, xx, xx] for subset datasets
+#  fusion_type: average              # average, complement or random
+
+parameter_setting:
+  radius: 5         # radius (m) of crop bounding box
+  icp_thres: 0.1    # icp threshold for estimating gt transformation
+  refine: True      # filter outlier matches or not
+  compute_hvr: True
+  icp_refine_img: True
+  save_visualization_comparison: True
+
+visualization:
+  visualize_offset: 5
+  visualize_gt_registration: False
+  visualize_correspondences: True
+  use_sub_sampled_correspondences: False
+  num_sub_sample: 200
+#  visualize_methods_registration: True
+#  visualize_corr_icp: False
+  visualize_registration_quality_of_methods: True
