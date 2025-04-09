@@ -32,27 +32,6 @@ This is the official PyTorch implementation of our paper accepted at the ISPRS L
 
 📄 [Paper (Camera Ready)](assets/Camera_Ready_Version.pdf)
 
-<!-- TABLE OF CONTENTS -->
-<details open="open" style='padding: 10px; border-radius:5px 30px 30px 5px; border-style: solid; border-width: 1px;'>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#installation">Installation</a>
-    </li>
-    <li>
-      <a href="#run">Run</a>
-    </li>
-    <li>
-      <a href="#to-do">To Do</a>
-    </li>
-    <li>
-      <a href="#citation">Citation</a>
-    </li>
-  </ol>
-</details>
-
-
-
 ## 🛠️ Installation
 
 Clone the repository and set up the environment:
