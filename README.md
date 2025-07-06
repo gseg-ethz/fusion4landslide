@@ -35,7 +35,7 @@ This repository contains official implementations of our series of work in TLS-b
 
 - 🏔️ [Dense 3D Displacement Estimation via Fusion of TLS Point Clouds and Embedded RGB Images](https://arxiv.org/abs/2506.16265) *(ArXiv, 2025)*
 
-The `main` branch contains the official implementations of both works and baselines ([Piecewise ICP](https://fig.net/resources/proceedings/2016/2016_03_jisdm_pdf/nonreviewed/JISDM_2016_submission_97.pdf), [F2S3](https://link.springer.com/article/10.1007/s10346-021-01761-y)). For RGB-Guided only code, switch to the [`rgb-guided-only`](https://github.com/zhaoyiww/fusion4landslide/tree/rgb-guided-only) branch.
+The `main` branch contains the official implementations of both works and baselines ([Piecewise ICP](https://fig.net/resources/proceedings/2016/2016_03_jisdm_pdf/nonreviewed/JISDM_2016_submission_97.pdf), [F2S3](https://link.springer.com/article/10.1007/s10346-021-01761-y)). For the code specific to the RGB-Guided approach, switch to the [`rgb-guided-only`](https://github.com/zhaoyiww/fusion4landslide/tree/rgb-guided-only) branch.
 
 ---
 
@@ -73,7 +73,7 @@ bash install.sh
 
 ## 📁 Example data <a name="example-data"></a>
 
-We provide our collected **Rockfall Simulator** dataset: [📦 Download from Google Drive](https://drive.google.com/drive/u/0/folders/1Cw1ekGQVyZJ0Qtt1AhxoWFG4MnZudO53). This dataset is partially used in our [RGB-Guided paper](https://www.research-collection.ethz.ch/handle/20.500.11850/731656). Please refer to the paper for a detailed data description and feel free to explore the full dataset for your own research.
+We provide our collected **Rockfall Simulator** dataset: [📦 Download from Hugging Face](https://huggingface.co/datasets/zhaoyiww/Rockfall_Simulator/tree/main). This dataset is partially used in our [RGB-Guided paper](https://www.research-collection.ethz.ch/handle/20.500.11850/731656). Please refer to the paper for a detailed data description and feel free to explore the full dataset for your own research.
 
 ## 🚀 Run <a name="run"></a>
 Before running, modify the corresponding config file in `/configs/test/[method]_[dataset].yaml`, and update any necessary parameters in `main_[method].py`. Then, run the main pipeline using:
@@ -94,7 +94,7 @@ python main_piecewise_icp.py   # run for Piecewise ICP baseline
 ## 🤗 Citation <a name="citation"></a>
 If our work helps your research, please consider citing:
 
-```bash
+```bibtex
 @preprint{wang2025fusion4landslide,
   title={Dense 3D Displacement Estimation for Landslide Monitoring via Fusion of TLS Point Clouds and Embedded RGB Images},
   author={Wang, Zhaoyi and Butt, Jemil Avers and Huang, Shengyu and Medic, Tomislav and Wieser, Andreas},
@@ -102,7 +102,7 @@ If our work helps your research, please consider citing:
   year={2025},}
 ```
 
-```bash
+```bibtex
 @inproceedings{Wang2025RGB4landslide,
   title={An Approach for RGB-Guided Dense 3D Displacement Estimation in TLS-Based Geomonitoring},
   author={Wang, Zhaoyi and Butt, Jemil Avers and Huang, Shengyu and Meyer, Nicholas and Medic, Tomislav and Wieser, Andreas},
