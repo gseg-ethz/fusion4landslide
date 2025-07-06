@@ -2,11 +2,11 @@
 
 <p align="center">
 
-  <h1 align="center">An Approach for RGB-Guided Dense 3D Displacement Estimation in TLS-Based Geomonitoring</h1>
+  <h1 align="center">Dense 3D Displacement Estimation for Landslide Monitoring via Fusion of TLS Point Clouds and Embedded RGB Images</h1>
   <p align="center">
     <a href="https://github.com/zhaoyiww/fusion4landslide"><img src="https://img.shields.io/badge/python-3670A0?style=flat-square&logo=python&logoColor=ffdd54" /></a>
     <a href="https://github.com/zhaoyiww/fusion4landslide"><img src="https://img.shields.io/badge/Linux-FCC624?logo=linux&logoColor=black" /></a>
-    <a href="/assets/Camera_Ready_Version.pdf"><img src="https://img.shields.io/badge/Paper-pdf-<COLOR>.svg?style=flat-square" /></a>
+    <a href="https://arxiv.org/abs/2506.16265"><img src="https://img.shields.io/badge/Paper-pdf-<COLOR>.svg?style=flat-square" /></a>
     <a href="https://github.com/zhaoyiww/fusion4landslide/blob/master/LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square" /></a>
   </p>  
 
@@ -17,8 +17,6 @@
     ·
     <a href="https://gseg.igp.ethz.ch/people.html"><strong>Shengyu Huang</strong></a>
     ·
-    <a href="https://gseg.igp.ethz.ch/people/scientific-assistance/nicholas-meyer.html"><strong>Nicholas Meyer</strong></a>
-    ·
     <a href="https://gseg.igp.ethz.ch/people/scientific-assistance/tomislav-medic.html"><strong>Tomislav Medic</strong></a>
     ·
     <a href="https://gseg.igp.ethz.ch/people/group-head/prof-dr--andreas-wieser.html"><strong>Andreas Wieser</strong></a>
@@ -28,38 +26,86 @@
   <div align="center"></div>
 </p>
 
-This is the official PyTorch implementation of our paper accepted at the ISPRS Laser Scanning Workshop 2025 (Dubai):
+---
 
-📄 [Paper (Camera Ready)](assets/Camera_Ready_Version.pdf)
+This repository contains official implementations of our series of work in TLS-based landslide monitoring. ⭐ Star us if you find it useful!
 
-## 🛠️ Installation
+- 📝 [An Approach for RGB-Guided Dense 3D Displacement Estimation in TLS-Based Geomonitoring](https://www.research-collection.ethz.ch/handle/20.500.11850/731656) *(ISPRS Geospatial Week, 2025)*
+
+- 📄 [Dense 3D Displacement Estimation for Landslide Monitoring via Fusion of TLS Point Clouds and Embedded RGB Images](https://arxiv.org/abs/2506.16265) *(ArXiv, 2025)*
+
+The `main` branch contains the official implementations of both works and baselines ([Piecewise ICP](https://fig.net/resources/proceedings/2016/2016_03_jisdm_pdf/nonreviewed/JISDM_2016_submission_97.pdf), [F2S3](https://link.springer.com/article/10.1007/s10346-021-01761-y)). For RGB-guided only code, switch to the [`rgb-guided-only`](https://github.com/zhaoyiww/fusion4landslide/tree/rgb-guided-only) branch.
+
+---
+
+<!-- TABLE OF CONTENTS -->
+<details open="open" style='padding: 10px; border-radius:5px 30px 30px 5px; border-style: solid; border-width: 1px;'>
+  <summary>📚 Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#installation">Installation</a>
+    </li>
+    <li>
+      <a href="#example-data">Example data</a>
+    </li>
+    <li>
+      <a href="#run">Run</a>
+    </li>
+    <li>
+      <a href="#todo-list">TODO list</a>
+    </li>
+    <li>
+      <a href="#citation">Citation</a>
+    </li>
+  </ol>
+</details>
+
+## 🛠️ Installation <a name="installation"></a>
 
 Clone the repository and set up the environment:
 
 ```bash
 git clone --recursive git@github.com:zhaoyiww/fusion4landslide.git
 cd fusion4landslide
-sh install.sh
+bash install.sh
 ```
 
-## 🚀 Run
-Run the main pipeline:
+## 📁 Example data <a name="example-data"></a>
+
+We provide our collected **Rockfall Simulator** dataset: [📦 Download from Google Drive](https://drive.google.com/drive/u/0/folders/1Cw1ekGQVyZJ0Qtt1AhxoWFG4MnZudO53). This dataset is partially used in our [RGB-Guided paper](https://www.research-collection.ethz.ch/handle/20.500.11850/731656). Please refer to the paper for a detailed data description and feel free to explore the full dataset for your own research.
+
+## 🚀 Run <a name="run"></a>
+Before running, modify the corresponding config file in `/configs/test/[method]_[dataset].yaml`, and update any necessary parameters in `main_[method].py`. Then, run the main pipeline using:
 ```bash
-python main_rgb_guided.py
+python main_fusion.py          # run for TLS+RGB fusion method
+python main_rgb_guided.py      # run for RGB-Guided method
+python main_f2s3.py            # run for F2S3 baseline
+python main_piecewise_icp.py   # run for Piecewise ICP baseline
 ```
 
-## 📌 To-Do
-- Add demo scripts and sample data
-- Add baselines for quantitative and qualitative comparison
-- Release the RGB-3D fusion pipeline upon paper submission
+## 📌 TODO list <a name="todo-list"></a>
+- [x] Add sample data and RGB-Guided scripts.
+- [ ] ⏳ Add baselines for quantitative and qualitative comparison.
+- [ ] ⏳ Release full RGB-3D fusion pipeline upon paper acceptance.
+- [ ] ⏳ Extend to photogrammetric 3D point clouds (SfM/MVS).
+- [ ] ⏳ Provide Pythonic version of point cloud tiling.
 
-## 📖 Citation
-If you find this work useful, please consider citing:
+## 🤗 Citation <a name="citation"></a>
+If our work helps your research, please consider citing:
+
+```bash
+@preprint{wang2025fusion4landslide,
+  title={Dense 3D Displacement Estimation for Landslide Monitoring via Fusion of TLS Point Clouds and Embedded RGB Images},
+  author={Wang, Zhaoyi and Butt, Jemil Avers and Huang, Shengyu and Medic, Tomislav and Wieser, Andreas},
+  journal={arXiv preprint},
+  year={2025},
+}
+```
 
 ```bash
 @inproceedings{Wang2025RGB4landslide,
   title={An Approach for RGB-Guided Dense 3D Displacement Estimation in TLS-Based Geomonitoring},
-  author={Wang, Z., Butt, J., Huang, S., Meyer, N., Medić, T., and Wieser, A.},
+  author={Wang, Zhaoyi and Butt, Jemil Avers and Huang, Shengyu and Meyer, Nicholas and Medic, Tomislav and Wieser, Andreas},
   journal={ISPRS Annals of the Photogrammetry, Remote Sensing and Spatial Information Sciences},
   year={2025}
 ```
