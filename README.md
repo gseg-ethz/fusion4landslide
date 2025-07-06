@@ -21,10 +21,11 @@
     ·
     <a href="https://gseg.igp.ethz.ch/people/group-head/prof-dr--andreas-wieser.html"><strong>Andreas Wieser</strong></a>
   </p>
-  <p align="center"><a href="https://ethz.ch/en.html"><strong>ETH Zürich</strong></a>
-
-  <div align="center"></div>
-</p>
+    <p align="center">
+      <a href="https://gseg.igp.ethz.ch/people/people-group.html"><strong>Geosensors and Engineering Geodesy (GSEG) Lab</strong></a>, 
+      <a href="https://igp.ethz.ch/"><strong>Institute of Geodesy and Photogrammetry (IGP)</strong></a>, 
+      <a href="https://ethz.ch/en.html"><strong>ETH Zürich</strong></a>
+    </p>
 
 ---
 
