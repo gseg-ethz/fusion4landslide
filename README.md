@@ -35,7 +35,7 @@ This repository contains official implementations of our series of work in TLS-b
 
 - 🏔️ [Dense 3D Displacement Estimation via Fusion of TLS Point Clouds and Embedded RGB Images](https://arxiv.org/abs/2506.16265) *(ArXiv, 2025)*
 
-The `main` branch contains the official implementations of both works and baselines ([Piecewise ICP](https://fig.net/resources/proceedings/2016/2016_03_jisdm_pdf/nonreviewed/JISDM_2016_submission_97.pdf), [F2S3](https://link.springer.com/article/10.1007/s10346-021-01761-y)). For RGB-guided only code, switch to the [`rgb-guided-only`](https://github.com/zhaoyiww/fusion4landslide/tree/rgb-guided-only) branch.
+The `main` branch contains the official implementations of both works and baselines ([Piecewise ICP](https://fig.net/resources/proceedings/2016/2016_03_jisdm_pdf/nonreviewed/JISDM_2016_submission_97.pdf), [F2S3](https://link.springer.com/article/10.1007/s10346-021-01761-y)). For RGB-Guided only code, switch to the [`rgb-guided-only`](https://github.com/zhaoyiww/fusion4landslide/tree/rgb-guided-only) branch.
 
 ---
 
@@ -99,8 +99,7 @@ If our work helps your research, please consider citing:
   title={Dense 3D Displacement Estimation for Landslide Monitoring via Fusion of TLS Point Clouds and Embedded RGB Images},
   author={Wang, Zhaoyi and Butt, Jemil Avers and Huang, Shengyu and Medic, Tomislav and Wieser, Andreas},
   journal={arXiv preprint},
-  year={2025},
-}
+  year={2025},}
 ```
 
 ```bash
@@ -108,5 +107,5 @@ If our work helps your research, please consider citing:
   title={An Approach for RGB-Guided Dense 3D Displacement Estimation in TLS-Based Geomonitoring},
   author={Wang, Zhaoyi and Butt, Jemil Avers and Huang, Shengyu and Meyer, Nicholas and Medic, Tomislav and Wieser, Andreas},
   journal={ISPRS Annals of the Photogrammetry, Remote Sensing and Spatial Information Sciences},
-  year={2025}
+  year={2025},}
 ```
