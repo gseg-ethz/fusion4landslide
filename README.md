@@ -91,6 +91,19 @@ python main_piecewise_icp.py   # run for Piecewise ICP baseline
 - [ ] ⏳ Extend to photogrammetric 3D point clouds (SfM/MVS).
 - [ ] ⏳ Provide Pythonic version of point cloud tiling.
 
+## 🤝 Acknowledgements
+
+We gratefully acknowledge the following open-source projects that contributed to this work:
+- Superpoint segmentation ([original](https://github.com/drprojects/superpoint_transformer) · [customized](https://github.com/zhaoyiww/superpoint_transformer)): Used for generating hierarchical patches in our pipeline.
+- Supervoxel segmentatition ([original](https://github.com/yblin/Supervoxel-for-3D-point-clouds) · [customized](https://github.com/gseg-ethz/supervoxel?tab=readme-ov-file)): Incorporated for single patch generation.
+- Efficient LoFTR ([original](https://github.com/zju3dv/EfficientLoFTR) · [customized](https://github.com/zhaoyiww/EfficientLoFTR)]): Used for semi-dense image pixel matching in our RGB-Guided method, and as the image-matching module in our fusion approach.
+- RoMA ([original](https://github.com/Parskatt/RoMa) · [customized](https://github.com/zhaoyiww/RoMa)): Integrated for dense image pixel matching.
+
+## 🔗 Relevant projects
+- [py4dgeo](https://github.com/3dgeo-heidelberg/py4dgeo): Implements M3C2 and its variants.
+- [iecepy4D](https://github.com/franioli/icepy4d): A Python package for image-based glacier monitoring.
+- [Piecewise-ICP](https://github.com/yihui4d/Piecewise-ICP?tab=readme-ov-file): A 4D point cloud registration method.
+
 ## 🤗 Citation <a name="citation"></a>
 If our work helps your research, please consider citing:
 
@@ -103,9 +116,11 @@ If our work helps your research, please consider citing:
 ```
 
 ```bibtex
-@inproceedings{Wang2025RGB4landslide,
-  title={An Approach for RGB-Guided Dense 3D Displacement Estimation in TLS-Based Geomonitoring},
-  author={Wang, Zhaoyi and Butt, Jemil Avers and Huang, Shengyu and Meyer, Nicholas and Medic, Tomislav and Wieser, Andreas},
+@article{wang2025RGB4landslide,
+  title={An approach for rgb-guided dense 3d displacement estimation in tls-based geomonitoring},
+  author={Wang, Zhaoyi and Butt, Jemil Avers and Huang, Shengyu and Meyer, Nicholas and Medi{\'c}, Tomislav and Wieser, Andreas},
   journal={ISPRS Annals of the Photogrammetry, Remote Sensing and Spatial Information Sciences},
-  year={2025},}
+  pages={953--960},
+  year={2025},
+}
 ```
