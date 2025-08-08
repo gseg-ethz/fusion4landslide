@@ -96,7 +96,8 @@ python main_piecewise_icp.py   # run for Piecewise ICP baseline
 We gratefully acknowledge the following open-source projects that contributed to this work:
 - Superpoint segmentation ([original](https://github.com/drprojects/superpoint_transformer) · [customized](https://github.com/zhaoyiww/superpoint_transformer)): Used for generating hierarchical patches in our pipeline.
 - Supervoxel segmentatition ([original](https://github.com/yblin/Supervoxel-for-3D-point-clouds) · [customized](https://github.com/gseg-ethz/supervoxel?tab=readme-ov-file)): Incorporated for single patch generation.
-- Efficient LoFTR ([original](https://github.com/zju3dv/EfficientLoFTR) · [customized](https://github.com/zhaoyiww/EfficientLoFTR)]): Used for semi-dense image pixel matching in our RGB-Guided method, and as the image-matching module in our fusion approach.
+- [F2S3](https://github.com/gseg-ethz/F2S3_pc_deformation_monitoring): 3D geometry-based displacement estimation baseline.
+- Efficient LoFTR ([original](https://github.com/zju3dv/EfficientLoFTR) · [customized](https://github.com/zhaoyiww/EfficientLoFTR)): Used for semi-dense image pixel matching in our RGB-Guided method, and as the image-matching module in our fusion approach.
 - RoMA ([original](https://github.com/Parskatt/RoMa) · [customized](https://github.com/zhaoyiww/RoMa)): Integrated for dense image pixel matching.
 
 ## 🔗 Relevant projects
