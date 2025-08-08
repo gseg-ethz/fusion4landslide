@@ -100,7 +100,7 @@ We gratefully acknowledge the following open-source projects that contributed to
 - RoMA ([original](https://github.com/Parskatt/RoMa) · [customized](https://github.com/zhaoyiww/RoMa)): Integrated for dense image pixel matching.
 
 ## 🔗 Relevant projects
-- [py4dgeo](https://github.com/3dgeo-heidelberg/py4dgeo): Implements M3C2 and its variants.
+- [py4dgeo](https://github.com/3dgeo-heidelberg/py4dgeo): A repository that contains implementations of M3C2 and its variants.
 - [iecepy4D](https://github.com/franioli/icepy4d): A Python package for image-based glacier monitoring.
 - [Piecewise-ICP](https://github.com/yihui4d/Piecewise-ICP?tab=readme-ov-file): A 4D point cloud registration method.
 
