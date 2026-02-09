@@ -29,6 +29,10 @@
 
 ---
 
+<div style="text-align: center;">
+<img src="assets/method_overview_jag_26.jpg" alt="Logo" style="width:100%; height:auto;">
+</div>
+
 This repository contains official implementations of our series of work in TLS-based landslide monitoring. ⭐ Star us if you find it useful!
 
 - 📷 [RGB-Guided Dense 3D Displacement Estimation in TLS-Based Geomonitoring](https://www.research-collection.ethz.ch/handle/20.500.11850/731656) *(ISPRS Geospatial Week, 2025)*
