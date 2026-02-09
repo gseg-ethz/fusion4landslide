@@ -4,10 +4,10 @@
 
   <h1 align="center">Dense 3D Displacement Estimation for Landslide Monitoring via Fusion of TLS Point Clouds and Embedded RGB Images</h1>
   <p align="center">
-    <a href="https://github.com/zhaoyiww/fusion4landslide"><img src="https://img.shields.io/badge/python-3670A0?style=flat-square&logo=python&logoColor=ffdd54" /></a>
-    <a href="https://github.com/zhaoyiww/fusion4landslide"><img src="https://img.shields.io/badge/Linux-FCC624?logo=linux&logoColor=black" /></a>
-    <a href="https://arxiv.org/abs/2506.16265"><img src="https://img.shields.io/badge/Paper-pdf-<COLOR>.svg?style=flat-square" /></a>
-    <a href="https://github.com/zhaoyiww/fusion4landslide/blob/master/LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square" /></a>
+    <a href="https://github.com/gseg-ethz/fusion4landslide"><img src="https://img.shields.io/badge/python-3670A0?style=flat-square&logo=python&logoColor=ffdd54" /></a>
+    <a href="https://github.com/gseg-ethz/fusion4landslide"><img src="https://img.shields.io/badge/Linux-FCC624?logo=linux&logoColor=black" /></a>
+    <a href="https://doi.org/10.1016/j.jag.2026.105093"><img src="https://img.shields.io/badge/Paper-pdf-<COLOR>.svg?style=flat-square" /></a>
+    <a href="https://github.com/gseg-ethz/fusion4landslide/blob/master/LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square" /></a>
   </p>  
 
   <p align="center">
@@ -35,7 +35,7 @@ This repository contains official implementations of our series of work in TLS-b
 
 - 🏔️ [Dense 3D Displacement Estimation via Fusion of TLS Point Clouds and Embedded RGB Images](https://doi.org/10.1016/j.jag.2026.105093) *(JAG, 2026)*
 
-The `main` branch contains the official implementations of both works and baselines ([Piecewise ICP](https://fig.net/resources/proceedings/2016/2016_03_jisdm_pdf/nonreviewed/JISDM_2016_submission_97.pdf), [F2S3](https://link.springer.com/article/10.1007/s10346-021-01761-y)). For the code specific to the RGB-Guided approach, switch to the [`rgb-guided-only`](https://github.com/zhaoyiww/fusion4landslide/tree/rgb-guided-only) branch.
+The `main` branch contains the official implementations of both works and baselines ([Piecewise ICP](https://fig.net/resources/proceedings/2016/2016_03_jisdm_pdf/nonreviewed/JISDM_2016_submission_97.pdf), [F2S3](https://link.springer.com/article/10.1007/s10346-021-01761-y)). For the code specific to the RGB-Guided approach, switch to the [`rgb-guided-only`](https://github.com/gseg-ethz/fusion4landslide/tree/rgb-guided-only) branch.
 
 ---
 
@@ -67,7 +67,7 @@ We test the code with **Python 3.8** and **PyTorch 2.2.0 + CUDA 11.8 (cu118)**.
 If you use a different CUDA / PyTorch version, please update the installation commands accordingly.
 
 ```bash
-git clone --recursive https://github.com/zhaoyiww/fusion4landslide.git
+git clone --recursive https://github.com/gseg-ethz/fusion4landslide.git
 cd fusion4landslide
 
 # create conda env + install torch/pyg/cpp dependencies
