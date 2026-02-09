@@ -33,7 +33,7 @@ This repository contains official implementations of our series of work in TLS-b
 
 - 📷 [RGB-Guided Dense 3D Displacement Estimation in TLS-Based Geomonitoring](https://www.research-collection.ethz.ch/handle/20.500.11850/731656) *(ISPRS Geospatial Week, 2025)*
 
-- 🏔️ [Dense 3D Displacement Estimation via Fusion of TLS Point Clouds and Embedded RGB Images](https://arxiv.org/abs/2506.16265) *(ArXiv, 2025)*
+- 🏔️ [Dense 3D Displacement Estimation via Fusion of TLS Point Clouds and Embedded RGB Images](https://doi.org/10.1016/j.jag.2026.105093) *(JAG, 2026)*
 
 The `main` branch contains the official implementations of both works and baselines ([Piecewise ICP](https://fig.net/resources/proceedings/2016/2016_03_jisdm_pdf/nonreviewed/JISDM_2016_submission_97.pdf), [F2S3](https://link.springer.com/article/10.1007/s10346-021-01761-y)). For the code specific to the RGB-Guided approach, switch to the [`rgb-guided-only`](https://github.com/zhaoyiww/fusion4landslide/tree/rgb-guided-only) branch.
 
@@ -47,7 +47,7 @@ The `main` branch contains the official implementations of both works and baseli
       <a href="#installation">Installation</a>
     </li>
     <li>
-      <a href="#example-data">Example data</a>
+      <a href="#example-data-and-weights">Example data and weights</a>
     </li>
     <li>
       <a href="#run">Run</a>
@@ -63,22 +63,30 @@ The `main` branch contains the official implementations of both works and baseli
 
 ## 🛠️ Installation <a name="installation"></a>
 
-Clone the repository and set up the environment:
+We test the code with **Python 3.8** and **PyTorch 2.2.0 + CUDA 11.8 (cu118)**.
+If you use a different CUDA / PyTorch version, please update the installation commands accordingly.
 
 ```bash
-git clone --recursive git@github.com:zhaoyiww/fusion4landslide.git
+git clone --recursive https://github.com/zhaoyiww/fusion4landslide.git
 cd fusion4landslide
-bash install.sh
+
+# create conda env + install torch/pyg/cpp dependencies
+source install.sh
+
+# install remaining python dependencies
+pip install -r requirements.txt
 ```
 
-## 📁 Example data <a name="example-data"></a>
+## 📁 Example data and weights <a name="example-data-and-weights"></a>
 
 We provide our collected **Rockfall Simulator** dataset: [📦 Download from Hugging Face](https://huggingface.co/datasets/zhaoyiww/Rockfall_Simulator/tree/main). This dataset is partially used in our [RGB-Guided paper](https://www.research-collection.ethz.ch/handle/20.500.11850/731656). Please refer to the paper for a detailed data description and feel free to explore the full dataset for your own research.
+
+The pretrained weights used can be downloaded from [here](https://drive.google.com/drive/folders/1BAM2EXxoiC5-UPe4CvBuSArFdrQRKuXZ?usp=sharing), please download weight files and save them under './weights/'.
 
 ## 🚀 Run <a name="run"></a>
 Before running, modify the corresponding config file in `/configs/test/[method]_[dataset].yaml`, and update any necessary parameters in `main_[method].py`. Then, run the main pipeline using:
 ```bash
-python main_fusion.py          # run for TLS+RGB fusion method
+python main_fusion.py          # run for Point cloud+RGB fusion (fusion) or Point cloud-only (fusion_3d) methods
 python main_rgb_guided.py      # run for RGB-Guided method
 python main_f2s3.py            # run for F2S3 baseline
 python main_piecewise_icp.py   # run for Piecewise ICP baseline
@@ -86,8 +94,8 @@ python main_piecewise_icp.py   # run for Piecewise ICP baseline
 
 ## 📌 TODO list <a name="todo-list"></a>
 - [x] Add sample data and RGB-Guided scripts.
-- [ ] ⏳ Add baselines for quantitative and qualitative comparison.
-- [ ] ⏳ Release full RGB-3D fusion pipeline upon paper acceptance.
+- [x] ⏳ Add baselines for quantitative and qualitative comparison.
+- [x] ⏳ Release full RGB-3D fusion pipeline upon paper acceptance.
 - [ ] ⏳ Extend to photogrammetric 3D point clouds (SfM/MVS).
 - [ ] ⏳ Provide Pythonic version of point cloud tiling.
 
@@ -109,17 +117,21 @@ We gratefully acknowledge the following open-source projects that contributed to
 If our work helps your research, please consider citing:
 
 ```bibtex
-@preprint{wang2025fusion4landslide,
-  title={Dense 3D Displacement Estimation for Landslide Monitoring via Fusion of TLS Point Clouds and Embedded RGB Images},
-  author={Wang, Zhaoyi and Butt, Jemil Avers and Huang, Shengyu and Medic, Tomislav and Wieser, Andreas},
-  journal={arXiv preprint},
-  year={2025},}
+@article{wang2026fusion4landslide,
+  title={Dense 3D displacement estimation for landslide monitoring via fusion of TLS point clouds and embedded RGB images},
+  author={Wang, Zhaoyi and Butt, Jemil Avers and Huang, Shengyu and Medić, Tomislav and Wieser, Andreas},
+  journal={International Journal of Applied Earth Observation and Geoinformation},
+  volume={146},
+  pages={105093},
+  year={2026},
+  issn={1569-8432},
+}
 ```
 
 ```bibtex
 @article{wang2025RGB4landslide,
   title={An approach for rgb-guided dense 3d displacement estimation in tls-based geomonitoring},
-  author={Wang, Zhaoyi and Butt, Jemil Avers and Huang, Shengyu and Meyer, Nicholas and Medi{\'c}, Tomislav and Wieser, Andreas},
+  author={Wang, Zhaoyi and Butt, Jemil Avers and Huang, Shengyu and Meyer, Nicholas and Medić, Tomislav and Wieser, Andreas},
   journal={ISPRS Annals of the Photogrammetry, Remote Sensing and Spatial Information Sciences},
   pages={953--960},
   year={2025},
