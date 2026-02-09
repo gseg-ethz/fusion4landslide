@@ -1,0 +1,23 @@
+open3d
+easydict
+coloredlogs
+hnswlib
+pytorch-lightning
+
+numpy
+scipy
+scikit-learn
+pandas
+opencv-python
+pyyaml
+tqdm
+wandb
+hydra-core
+omegaconf
+rich
+
+# install the following packages if using the image-related component
+einops
+kornia
+loguru
+yacs

@@ -1,44 +1,109 @@
-#!/bin/bash
-
-# run this with 'source install.sh'
-# remove the virtual env
-# conda remove -n fusion4landslide --all -y
+#!/usr/bin/env bash
+set -euo pipefail
 
 echo "---------------------------------------------"
-echo
 echo "----------- Env Installation -----------"
-echo
 echo "---------------------------------------------"
 
 PROJECT_NAME=fusion4landslide
 PYTHON=3.8
-#CUDA_VERSION=11.8
 
-# create and activate a new virtual environment
-echo "Creating and activate a new virtual environment '${PROJECT_NAME}'"
-conda create -n ${PROJECT_NAME} python=${PYTHON} -y
-conda activate ${PROJECT_NAME}
+# >>> make conda activate work in script
+if ! command -v conda &> /dev/null; then
+  echo "[ERROR] conda not found. Please install Miniconda/Anaconda first."
+  exit 1
+fi
+eval "$(conda shell.bash hook)"
+# <<<
 
-# CUDA 11.8, from https://pytorch.org/get-started/previous-versions/
+echo "Creating conda env: ${PROJECT_NAME} (python=${PYTHON})"
+conda create -n "${PROJECT_NAME}" python="${PYTHON}" -y
+conda activate "${PROJECT_NAME}"
+
+# -------------------------
+# 1) Install PyTorch + CUDA
+# -------------------------
+# (torch==2.2.0 + cu118)
+TORCH_VERSION=2.2.0
+TV_VERSION=0.17.0
+TA_VERSION=2.2.0
 CUDA_VERSION=11.8
-echo "Install CUDA ${CUDA_VERSION}"
-conda install pytorch==2.2.0 torchvision==0.17.0 torchaudio==2.2.0 pytorch-cuda=${CUDA_VERSION} -c pytorch -c nvidia -y
 
-# install necessary libraries
-echo "Install necessary libraries"
-pip install open3d
-pip install easydict
-pip install coloredlogs
-# may only used for f2s3 project
-pip install hnswlib
-pip install pytorch-lightning
+echo "Install PyTorch ${TORCH_VERSION} with CUDA ${CUDA_VERSION}"
+conda install pytorch=="${TORCH_VERSION}" torchvision=="${TV_VERSION}" torchaudio=="${TA_VERSION}" \
+  pytorch-cuda="${CUDA_VERSION}" -c pytorch -c nvidia -y
 
+python -c "import torch; print('torch:', torch.__version__, 'cuda:', torch.version.cuda, 'is_available:', torch.cuda.is_available())"
 
-# install cpp_core
-cd cpp_core/pcd_tiling
-source generate_wraper.sh
-cd ..
-cd supervoxel_segmentation
-source generate_wraper.sh
-cd ..
+# -------------------------
+# 2) Install python deps
+# -------------------------
+echo "Install python requirements"
+pip install -r requirements.txt
 
+# -------------------------
+# 3) Install PyG stack (torch-geometric + extensions)
+# -------------------------
+# PyG wheels index depends on torch version + cuda tag
+# for cu118: torch-2.2.0+cu118.html
+PYG_WHL_URL="https://data.pyg.org/whl/torch-${TORCH_VERSION}+cu118.html"
+
+echo "Install PyTorch Geometric stack from: ${PYG_WHL_URL}"
+pip install pyg-lib torch-scatter torch-sparse torch-cluster torch-spline-conv -f "${PYG_WHL_URL}"
+pip install torch-geometric==2.3.0
+
+python -c "import torch_geometric; print('torch_geometric:', torch_geometric.__version__)"
+
+# -------------------------
+# 4) Build your cpp_core wrappers
+# -------------------------
+echo "Build cpp_core wrappers"
+pushd cpp_core/pcd_tiling
+bash generate_wraper.sh
+popd
+
+# install it when using supervoxel_seegmentation for partitioning
+pushd cpp_core/supervoxel_segmentation
+bash generate_wraper.sh
+popd
+
+# install packages 5-7 if using superpoint transformer for partitioning, reference: superpoint_transformer/install.sh
+
+# -------------------------
+# 5) FRNN (as in your script)
+# -------------------------
+echo "⭐ Installing FRNN"
+mkdir -p src/dependencies
+if [ ! -d "src/dependencies/FRNN" ]; then
+  git clone --recursive https://github.com/lxxue/FRNN.git src/dependencies/FRNN
+fi
+
+pushd src/dependencies/FRNN/external/prefix_sum
+python setup.py install
+popd
+
+pushd src/dependencies/FRNN
+python setup.py install
+popd
+
+# -------------------------
+# 6) point_geometric_features
+# -------------------------
+echo "⭐ Installing Point Geometric Features"
+conda install -c conda-forge libstdcxx-ng -y
+pip install git+https://github.com/drprojects/point_geometric_features.git
+
+# -------------------------
+# 7) parallel-cut-pursuit deps
+# -------------------------
+echo "⭐ Installing Parallel Cut-Pursuit"
+if [ ! -d "src/dependencies/parallel_cut_pursuit" ]; then
+  git clone https://gitlab.com/1a7r0ch3/parallel-cut-pursuit.git src/dependencies/parallel_cut_pursuit
+fi
+if [ ! -d "src/dependencies/grid_graph" ]; then
+  git clone https://gitlab.com/1a7r0ch3/grid-graph.git src/dependencies/grid_graph
+fi
+
+python scripts/setup_dependencies.py build_ext
+
+echo "✅ Done."
