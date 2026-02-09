@@ -1,0 +1,23 @@
+misc:
+  verbose: True
+  save_interim: False
+
+path_name:
+  input_root: /scratch2/zhawang/datasets/Brienz_TLS/2002_2011_ROIs/registration_wo_riscan_w_georeference
+  output_dir: /scratch2/zhawang/projects/fusion4landslide/output/Brienz_TLS/piecewise_icp/
+  output_folder: demo_run
+
+data:
+  dataset: brienz_tls # 'brienz_tls' or 'rockfall_simulator', 'mattertal'
+  src_pcd: 200221_112428_ROI1_xyzrgb.ply
+  tgt_pcd: 201130_101522_ROI1_xyzrgb.ply
+
+method:
+  #  pcd_tiling: False
+  tiling_type: xy_tiling # xy_tiling, or hv_tiling
+  max_pts_per_tile: 1000000
+  min_pts_per_tile: 5000
+  voxel_size: 0.1
+  smax: 5       # size of each octree cell (S_min, resolution), default: 20 m; use 20 for mattertal, use 5 for brienz, and 0.05 for rockfall
+  threshold: 0.1  # threshold used in establishing ICP correspondences, may not be used; default: 0.5
+  number_points_min: 10   # num_points_min per octree cell, N_min, 20; default: 50

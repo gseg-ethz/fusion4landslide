@@ -1,0 +1,52 @@
+# misc
+misc:
+  gpu_mode: True
+  # Print out more details to the command line or not
+  verbose: True
+  save_interim: False
+  output_dir: /scratch2/zhawang/projects/fusion4landslide/output/Brienz_TLS/f2s3/
+  output_folder: demo_run
+
+data:
+  batch_size: 1
+  num_workers: 8
+  data_dir: /scratch2/zhawang/datasets/Brienz_TLS/2002_2011_ROIs/registration_wo_riscan_w_georeference
+  src_name: 200221_112428_ROI1_xyzrgb.ply
+  tgt_name: 201130_101522_ROI1_xyzrgb.ply
+
+  max_pts_per_tile: 1000000
+  min_pts_per_tile: 5000
+  voxel_size: 0.1
+  max_disp_magnitude: 5  # 5 m for brienz, 10 m for mattertal
+  filter_median_magnitude: True
+  fill_gaps_c2c: True
+  refine_results: True
+
+processing:
+#  tiling: False   # if tiling is set to False, the tiled data must exist in default folder
+  tiling_type: xy_tiling
+  n_normals: 30
+  feat_compute: True
+  feat_type: DIPs
+  pcd_segment: True
+  segment_type: supervoxel  # use supervoxel or superpoint for segmentation
+  # 0_level_colors, 1_level_colors, 2_level_colors, 3_level_colors
+  # raw: 275336; levels: 271282, 4093, 1432, 460
+  small_patch_removal: True
+  # spt_color_level: 2_level_colors # activate if superpoint-based partitioning is used
+  outlier_removal: True
+  removal_type: binary_classifier
+  correspondence_searching: True
+  correspondence_pruning: True
+
+correspondence:
+  M: 12
+  efC: 300
+  efS: 300
+  num_threads: 16
+
+model:
+  weight_dir: weights/
+  points_per_batch: 1000
+  debug: True
+ 

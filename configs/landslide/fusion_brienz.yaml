@@ -1,0 +1,118 @@
+misc:
+  verbose: True
+  save_interim: False
+
+path_name:
+  input_root: /scratch2/zhawang/datasets/Brienz_TLS/2002_2011_ROIs/registration_wo_riscan_w_georeference
+  output_dir: /scratch2/zhawang/projects/fusion4landslide/output/Brienz_TLS/fusion/
+  output_folder: demo_run
+  weight_dir: weights/
+  img_matching_result_dir: img_matching_results  # Efficient-LoFTR or RoMA
+  pretrained_patch_2d_weight: lcd_64d.pth
+  pretrained_pixel_2d_weight: resnet50_pri3d.pth
+  pretrained_feature_aggregation_weight: feat_aggregation_3d.pth  # patch-wise: feat_aggregation_3d_w_patch_img.pth
+
+data:
+  dataset: brienz_tls # 'brienz_tls', 'mattertal', or 'rockfall_simulator'
+  src_pcd: 200221_112428_ROI1_xyzrgb.ply
+  tgt_pcd: 201130_101522_ROI1_xyzrgb.ply
+  multiple_case: True
+
+method:
+  # point cloud tiling
+#  pcd_tiling: False
+  tiling_type: xy_tiling # xy_tiling, or hv_tiling
+  max_pts_per_tile: 1000000     # default: 1000000, for ROIs: 200000
+  min_pts_per_tile: 5000
+  voxel_size_init: 0.1         # only for tiling, and will be updated to the voxel_size according to the point cloud tile
+
+  # general method types, global 3D point matches from 2D pixel matching
+  use_2d_matches: True   # for fusion method, 2D match input is compulsory
+  img_matching_type: ELoFTR # ELoFTR, RoMA
+  num_sub_img: 1  # for num. of most matched
+  image_size: [1920, 2560]
+  crop_size: [960, 1280]
+  overlap_size: [480, 640]
+  save_img_matching_visualization: True
+
+  # 2D-3D lifting
+  pixel_thres: 5
+  lifting_type: nn_search # nn_search, interpolation
+  matches_from_2d_type: nn_src_only # nn_mutual, nn_union, default: nn_src_only, nn_src_with_tgt_for_visualize
+  save_initial_matches_from_2d: True
+
+  # patch construction
+  partition: True      # if false use the pre-computed result, reducing debugging time
+  partition_type: superpoint   # 'supervoxel', 'superpoint'
+  level_of_superpoint: [1, 2, 3]   # three levels (1,2,3), 1: smallest, 3: largest; original level_0 just the voxelization result
+  small_patch_removal: True
+  num_min_matches_for_small_patch: 10   # default: 10
+
+  # pretrained feat extraction, extract voxel point features
+  point_feat_compute: True
+  feat_type: DIPs
+  feat_dim: 64
+
+  # global 3D point matches from 3D global KNN matching
+  global_matching_from_3d_type: faiss # hnsw, cdist, cdist_cpu
+
+  # general matching setting, only one true, others false for each type of matching (i.e., coarse and fine)
+  coarse_matching_fusion: True
+  coarse_matching_only_3d: False
+  coarse_matching_only_2d: False
+  fine_matching_fusion: True
+  fine_matching_only_3d: False
+  fine_matching_only_2d: False
+
+  # coarse matching
+  # avg, max, pca, vlad, learnable vlad, learnable mlp, spatial_pyramid, learning_pooling
+  feat_aggregate_type: 'learning_based' # implemented, learning_based
+  use_normal_3d_aggregation: True
+  use_img_patch_enhanced_3d_aggregation: False
+  enlarge_img_patch: False
+  use_updated_lcd: True
+  use_img_pixel_enhanced_3d_aggregation: False
+  remove_low_quality_patch_matches: True   # w/ or w/o refinement
+  num_min_matches_for_quality_check: 10  # should be larger than num_min_fine_match, as less number will be skipped
+  thres_dist_diff: 0.5       # default: 0.1, larger --> looser, smaller --> stricter
+  thres_inlier_ratio: 0.15  # default: 0.5, larger --> sparser, smaller --> denser
+  coarse_refinement_3d_type: 'nn_mutual' # only_max_mag, nn_mutual (i.e., nn_mutual_intersection), nn_union (not implemented)
+
+  # fine matching
+  num_min_fine_match: 10  # important for smoothness, also important for density, default 20, 15; for mattertal 5; minimum: 1
+  weighting_svd: False    # for fine matching with matches from both 2D and 3D sources
+  icp_refine: True
+  icp_register_type: only_matches  # all_pts, only_matches
+  output_tgt2src: False   # output the dvfs based on the tgt epoch scan
+  assign_type: assign_then_nn # 'assign_all_src', 'assign_then_nn'
+
+# TODO: merge the following parameters into the above method
+parameter_setting:  # parameters with changeable values
+  batch_size: 1
+  num_workers: 8
+  points_per_batch: 1000
+  n_normals: 30  # for supervoxel-based partitioning
+  icp_threshold: 0.1 # default 0.1; 0.1 for Brienz, 0.3 for Mattertal
+  max_magnitude: 5 # default 10, 5 m for Brienz, 10 m for Mattertal
+  ## parameters used for hnsw-based knn
+  M: 12
+  efC: 300
+  efS: 300
+  num_threads: 16
+
+visualization:
+  visualize_patch: False
+  visualize_patch2: False
+  visualize_patch_one_src_to_multiple_tgt: True
+  visualize_patch_after_mutual_selection: False
+  visualize_patch_after_union_selection: False
+  visualize_patch_after_union_close_neighbor_selection: False  # doesn't work?
+  visualize_matches_within_patch: False
+  offset: [75, 75, 75]
+  num_of_visualize_samples: 10
+  random_choice: False
+  small_region: 50  # for accelerate visualization
+
+debugging:
+  use_debugging: False
+  num_spt: 200
