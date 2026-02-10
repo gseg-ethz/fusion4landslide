@@ -67,7 +67,7 @@ The `main` branch contains the official implementations of both works and baseli
 
 ## 🛠️ Installation <a name="installation"></a>
 
-We test the code with **Python 3.8** and **PyTorch 2.2.0 + CUDA 11.8 (cu118)**.
+We test the code with **Python 3.8** and **PyTorch 2.4.1 + CUDA 12.4 (cu124)**.
 If you use a different CUDA / PyTorch version, please update the installation commands accordingly.
 
 ```bash

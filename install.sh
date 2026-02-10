@@ -1,5 +1,4 @@
-#!/usr/bin/env bash
-set -euo pipefail
+#!/bin/bash
 
 echo "---------------------------------------------"
 echo "----------- Env Installation -----------"
@@ -23,11 +22,11 @@ conda activate "${PROJECT_NAME}"
 # -------------------------
 # 1) Install PyTorch + CUDA
 # -------------------------
-# (torch==2.2.0 + cu118)
-TORCH_VERSION=2.2.0
-TV_VERSION=0.17.0
-TA_VERSION=2.2.0
-CUDA_VERSION=11.8
+# Match: torch 2.4.1 + cu124
+TORCH_VERSION=2.4.1
+TV_VERSION=0.19.1
+TA_VERSION=2.4.1
+CUDA_VERSION=12.4
 
 echo "Install PyTorch ${TORCH_VERSION} with CUDA ${CUDA_VERSION}"
 conda install pytorch=="${TORCH_VERSION}" torchvision=="${TV_VERSION}" torchaudio=="${TA_VERSION}" \
@@ -36,23 +35,22 @@ conda install pytorch=="${TORCH_VERSION}" torchvision=="${TV_VERSION}" torchaudi
 python -c "import torch; print('torch:', torch.__version__, 'cuda:', torch.version.cuda, 'is_available:', torch.cuda.is_available())"
 
 # -------------------------
-# 2) Install python deps
+# 2) Install PyG stack (torch-geometric + extensions)
 # -------------------------
-echo "Install python requirements"
-pip install -r requirements.txt
-
-# -------------------------
-# 3) Install PyG stack (torch-geometric + extensions)
-# -------------------------
-# PyG wheels index depends on torch version + cuda tag
-# for cu118: torch-2.2.0+cu118.html
-PYG_WHL_URL="https://data.pyg.org/whl/torch-${TORCH_VERSION}+cu118.html"
+# PyG wheels index for torch 2.4.1 + cu124
+PYG_WHL_URL="https://data.pyg.org/whl/torch-${TORCH_VERSION}+cu124.html"
 
 echo "Install PyTorch Geometric stack from: ${PYG_WHL_URL}"
 pip install pyg-lib torch-scatter torch-sparse torch-cluster torch-spline-conv -f "${PYG_WHL_URL}"
 pip install torch-geometric==2.3.0
 
 python -c "import torch_geometric; print('torch_geometric:', torch_geometric.__version__)"
+
+# -------------------------
+# 3) Install python deps
+# -------------------------
+echo "Install python requirements"
+pip install -r requirements.txt
 
 # -------------------------
 # 4) Build your cpp_core wrappers
@@ -73,6 +71,8 @@ popd
 # 5) FRNN (as in your script)
 # -------------------------
 echo "⭐ Installing FRNN"
+git clone git@github.com:zhaoyiww/superpoint_transformer.git
+cd superpoint_transformer
 mkdir -p src/dependencies
 if [ ! -d "src/dependencies/FRNN" ]; then
   git clone --recursive https://github.com/lxxue/FRNN.git src/dependencies/FRNN
@@ -106,4 +106,5 @@ fi
 
 python scripts/setup_dependencies.py build_ext
 
+cd ..
 echo "✅ Done."
