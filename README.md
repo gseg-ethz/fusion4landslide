@@ -76,9 +76,6 @@ cd fusion4landslide
 
 # create conda env + install torch/pyg/cpp dependencies
 source install.sh
-
-# install remaining python dependencies
-pip install -r requirements.txt
 ```
 
 ## 📁 Example data and weights <a name="example-data-and-weights"></a>
